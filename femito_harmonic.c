@@ -151,7 +151,7 @@ void potential_mat(double *mat,struct Element *e,struct Vertex *v,int M,int N)
 			}
 			else if((j-i)==-1)
 			{
-				coeff[2] = (1.0/10.0)*v[i+1].x*v[i+1].x + (2.0/15.0)*v[i+1].x*v[j].x +(1.0/10.0)*v[i].x*v[i].x;
+				coeff[2] = (1.0/10.0)*v[i+1].x*v[i+1].x + (2.0/15.0)*v[i+1].x*v[i].x +(1.0/10.0)*v[i].x*v[i].x;
 				mat[k] = 0.5*e[i+1].h*coeff[2];
 
 				//printf("%d\t",i);
@@ -266,7 +266,7 @@ int main (void)
 	h_mat = (double *)malloc(sizeof(double)*(Ne-1)*(Ne-1));
 	k_mat = (double *)malloc(sizeof(double)*(Ne-1)*(Ne-1));
 	ci =  (double *) malloc ( pow(Ne-1,2) * sizeof (double) );
-	ei = (double *) malloc ((Ne-2)*sizeof(double));
+	ei = (double *) malloc ((Ne-1)*sizeof(double));
 
 
 
@@ -285,17 +285,17 @@ int main (void)
 
 	}
 	potential_mat(v_mat,e,v,Ne-1,Ne-1);
-	print_matrix("POTENTIAL ENERGY MATRIX",Ne-1,Ne-1,v_mat);
+	//print_matrix("POTENTIAL ENERGY MATRIX",Ne-1,Ne-1,v_mat);
 	overlap_mat(s_mat,e,Ne-1,Ne-1);
-	print_matrix("OVERLAP MATRIX",Ne-1,Ne-1,s_mat);
+	//print_matrix("OVERLAP MATRIX",Ne-1,Ne-1,s_mat);
 	kinect_mat(k_mat,e,Ne-1,Ne-1);
-	print_matrix("KINECT ENERGY MATRIX",Ne-1,Ne-1,k_mat);
+	//print_matrix("KINECT ENERGY MATRIX",Ne-1,Ne-1,k_mat);
 	hij_mat(h_mat,v_mat,k_mat,Ne-1);
-	print_matrix("H ENERGY MATRIX",Ne-1,Ne-1,h_mat);
+	//print_matrix("H ENERGY MATRIX",Ne-1,Ne-1,h_mat);
 
 
 	diag(Ne-1,h_mat,s_mat,ei,ci);
-	print_matrix("EIGENVALUES",1,Ne-1,e);
+	print_matrix("EIGENVALUES",1,Ne-1,ei);
 	
 
 	return 0;

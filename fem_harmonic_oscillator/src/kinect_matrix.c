@@ -49,35 +49,35 @@ void second_grade_kin(double *mat,int M,int N,struct Element *e)
 		{
 			if((i-j)==0 && i%2==0)
 			{
-				mat[k] = (2.0/e[ij+1].h)*(8.0/3.0);
+				mat[k] = (2.0/e[ij].h)*(8.0/3.0);
 				//printf("%d\t",ij+1);
 			}
 			else if((i-j)==0 && i%2!=0)
 			{
-				mat[k] = (2.0/e[ij+1].h)*(7.0/6.0) + (2.0/e[ij+2].h)*(7.0/6.0);
+				mat[k] = (2.0/e[ij].h)*(7.0/6.0) + (2.0/e[ij+1].h)*(7.0/6.0);
 				//printf("%d + %d\t",ij+1,ij+2);
 				ij++;
 			}
 			else if((j-i)==1)
 			{
-				mat[k] = (-1.0)*(2.0/e[ij+1].h)*(4.0/3.0);
+				mat[k] = (-1.0)*(2.0/e[ij].h)*(4.0/3.0);
 				//printf("%d\t",ij+1);
 
 			}
 			else if((j-i)==-1)
 			{
-				mat[k] = (-1.0)*(2.0/e[ij+1].h)*(4.0/3.0);
+				mat[k] = (-1.0)*(2.0/e[ij].h)*(4.0/3.0);
 				//printf("%d\t",ij+1);
 
 			}
 			else if((j-i)==2 && j%2!=0)
 			{
-				mat[k] = (2.0/e[ij+1].h)*(7.0/6.0);
+				mat[k] = (2.0/e[ij].h)*(7.0/6.0);
 				//printf("%d\t",ij+1);
 			}
 			else if((j-i)==-2 && j%2!=0)
 			{
-				mat[k] = (2.0/e[ij+1].h)*(7.0/6.0);
+				mat[k] = (2.0/e[ij].h)*(7.0/6.0);
 				// printf("%d\t",ij+1);
 			}
 			else

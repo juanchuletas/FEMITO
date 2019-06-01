@@ -47,35 +47,35 @@ void second_grade_overlap(double *mat,int M,int N,struct Element *e)
 		{
 			if((i-j)==0 && i%2==0)
 			{
-				mat[k] = 0.5*(16.0/15.0)*e[ij+1].h;
+				mat[k] = 0.5*(16.0/15.0)*e[ij].h;
 				//printf("%d\t",ij+1);
 			}
 			else if((i-j)==0 && i%2!=0)
 			{
-				mat[k] = 0.5*(4.0/15.0)*e[ij+1].h + 0.5*(4.0/15.0)*e[ij+2].h;
+				mat[k] = 0.5*(4.0/15.0)*e[ij].h + 0.5*(4.0/15.0)*e[ij+1].h;
 				//printf("%d + %d\t",ij+1,ij+2);
 				ij++;
 			}
 			else if((j-i)==1)
 			{
-				mat[k] = 0.5*(2.0/15.0)*e[ij+1].h;
+				mat[k] = 0.5*(2.0/15.0)*e[ij].h;
 				//printf("%d\t",ij+1);
 
 			}
 			else if((j-i)==-1)
 			{
-				mat[k] = 0.5*(2.0/15.0)*e[ij+1].h;
+				mat[k] = 0.5*(2.0/15.0)*e[ij].h;
 				//printf("%d\t",ij+1);
 
 			}
 			else if((j-i)==2 && j%2!=0)
 			{
-				mat[k] = (-1.0)*0.5*(1.0/15.0)*e[ij+1].h;
+				mat[k] = (-1.0)*0.5*(1.0/15.0)*e[ij].h;
 				//printf("%d\t",ij+1);
 			}
 			else if((j-i)==-2 && j%2!=0)
 			{
-				mat[k] = (-1.0)*0.5*(1.0/15.0)*e[ij+1].h;
+				mat[k] = (-1.0)*0.5*(1.0/15.0)*e[ij].h;
 				// printf("%d\t",ij+1);
 			}
 			else

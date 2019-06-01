@@ -4,13 +4,12 @@
 #include "data_structures.h"
 
 extern void user_input(int *Ne,double *x0, double *xN,double *hx);
-extern void set_elements_size(struct Element *e,int Ne, double *x);
-extern void set_elements_nodes(struct Element *e,struct Vertex *n,int Ne, double *x);
+extern void set_elements(struct Element *e,struct Vertex *n,int Ne, double *x);
 extern void overlap_matrix(double *mat,int N,int M,int option,struct Element *e);
 extern void kinect_matrix(double *mat,int N,int M,int option,struct Element *e);
+extern void hij_matrix(double *m,double *v,double *k,int N,int M);
 extern void potential_matrix(double *mat,int N,int M,int option,struct Element *e,struct Vertex *n);
 extern void print_matrix(char *str, int M,int N,double *a);
-extern void print_elements(struct Element *e,struct Vertex *n,int M,int N);
 void second_grade_interpolation(int option)
 {
 	int Ne,M,N;
@@ -24,14 +23,12 @@ void second_grade_interpolation(int option)
 	
 	double *s_mat,*v_mat,*h_mat,*k_mat,*ei,*ci;
 	struct Element *e;
-	//struct Vertex *n;
 
-	e = (struct Element *)malloc(sizeof(struct Element)*(Ne+1));
-	//n = (struct Vertex *)malloc(sizeof(struct Vertex)*3);
+	e = (struct Element *)malloc(sizeof(struct Element)*(Ne));
         s_mat = (double *)malloc(sizeof(double)*(M*N));
-        //k_mat = (double *)malloc(sizeof(double)*(M*N));
-        //v_mat = (double *)malloc(sizeof(double)*(M*N));
-        //h_mat = (double *)malloc(sizeof(double)*(M*N));
+        k_mat = (double *)malloc(sizeof(double)*(M*N));
+        v_mat = (double *)malloc(sizeof(double)*(M*N));
+        h_mat = (double *)malloc(sizeof(double)*(M*N));
         //ci = (double *)malloc(pow(M,2)*sizeof(double));
 	//ei = (double *)malloc((N)*sizeof(double));
         x = (double *)malloc(sizeof(double)*(Ne+1));
@@ -42,33 +39,37 @@ void second_grade_interpolation(int option)
                 printf("Vertex value x[%d] = %lf\n",i,x[i]);
         
         }
-	set_elements_size(e,Ne,x);
-	set_elements_nodes(e,e->n,Ne,x);
-	for(int i=1; i<=Ne; i++)
+	set_elements(e,e->n,Ne,x);
+	for(int i=0; i<Ne; i++)
         {
                         printf("e[%d].h = %lf\n",i,e[i].h);
         }
-	for(int i=1; i<=Ne; i++)
+	for(int i=0; i<Ne; i++)
         {
-		for(int j=0; j<3;j++)
-		{
+                for(int j=0; j<3; j++)
+                {
                         printf("e[%d].n[%d].x = %lf\n",i,j,e[i].n[j].x);
-		}
+
+                }
         }
-	print_elements(e,e->n,M,N);
+
+
 	overlap_matrix(s_mat,M,N,option,e);
 	print_matrix("OVERLAP MATRIX",M,N,s_mat);
-	//kinect_matrix(k_mat,M,N,option,e);
-	//print_matrix("KINECT ENERGY MATRIX",M,N,k_mat);
-	//potential_matrix(v_mat,M,N,option,e,e->n);
-	//print_matrix("POTENTIAL ENERGY MATRIX",M,N,v_mat);
+	kinect_matrix(k_mat,M,N,option,e);
+	print_matrix("KINECT ENERGY MATRIX",M,N,k_mat);
+	potential_matrix(v_mat,M,N,option,e,e->n);
+	print_matrix("POTENTIAL ENERGY MATRIX",M,N,v_mat);
+	hij_matrix(h_mat,v_mat,k_mat,M,N);
+	print_matrix("H MATRIX",M,N,h_mat);
 
 
 	free(x);
-	free(e);
-	//free(e->n);
-	//free(k_mat);
+	free(h_mat);
+	free(v_mat);
+	free(k_mat);
 	free(s_mat);
+	free(e);
 
 
 

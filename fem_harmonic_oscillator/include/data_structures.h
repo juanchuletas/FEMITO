@@ -4,6 +4,6 @@ struct Vertex
 };
 struct Element
 {
-        struct Vertex *n;
+        struct Vertex n[3];
         double h;
 };

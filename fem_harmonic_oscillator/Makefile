@@ -26,6 +26,8 @@ SOURCE = $(wildcard $(SRC)/*.c)
 
 OBJECT = $(patsubst %,$(BIN)/%, $(notdir $(SOURCE:.c=.o)))
 
+LIB = -llapack 
+
 CC = gcc
 
 ifeq ($(UNAME), Darwin)
@@ -53,7 +55,7 @@ CFLAGS = -I$(INC) -std=c99
 
 $(BIN)/$(TARGET) : $(OBJECT)
 	@echo -e "$(RED)LINKING...$(NC)"
-	$(CC) -o  $@ $^ -lm
+	$(CC) -o  $@ $^ -lm $(LIB)
 	@echo -e "$(YELLOW)FINISHED!!!$(NC)"
 	@echo -e "$(YELLOW)SUCCESFULL!!!$(NC)"
 	@echo -e "$(BLUE)OPERATING SISTEM: $(UNAME)!!!...$(NC)"
@@ -61,7 +63,7 @@ $(BIN)/$(TARGET) : $(OBJECT)
 $(BIN)/%.o : $(SRC)/%.c
 	@echo -e "$(GREEN)COMPILING...$(NC)"
 	@echo -e  "\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $<
-	$(CC) $(CFLAGS) -c  $< -o  $@
+	$(CC) $(CFLAGS) -c  $< -o $@
 
 endif
 

@@ -37,11 +37,11 @@ void second_grade_interpolation(int option)
 	for(int i=0; i<Ne+1; i++)
         {       
                 x[i] = x0 + hx*i;
-                //printf("Vertex value x[%d] = %lf\n",i,x[i]);
+               // printf("Vertex value x[%d] = %lf\n",i,x[i]);
         
         }
 	set_elements(e,e->n,Ne,x);
-	/*for(int i=0; i<Ne; i++)
+/*	for(int i=0; i<Ne; i++)
         {
                         printf("e[%d].h = %lf\n",i,e[i].h);
         }
@@ -56,13 +56,13 @@ void second_grade_interpolation(int option)
 
 
 	overlap_matrix(s_mat,M,N,option,e);
-	print_matrix("OVERLAP MATRIX",M,N,s_mat);
+	//print_matrix("OVERLAP MATRIX",M,N,s_mat);
 	kinect_matrix(k_mat,M,N,option,e);
-	print_matrix("KINECT ENERGY MATRIX",M,N,k_mat);
+	//print_matrix("KINECT ENERGY MATRIX",M,N,k_mat);
 	potential_matrix(v_mat,M,N,option,e,e->n);
-	print_matrix("POTENTIAL ENERGY MATRIX",M,N,v_mat);
+	//print_matrix("POTENTIAL ENERGY MATRIX",M,N,v_mat);
 	hij_matrix(h_mat,v_mat,k_mat,M,N);
-	print_matrix("H MATRIX",M,N,h_mat);
+	//print_matrix("H MATRIX",M,N,h_mat);
 
 	diag(M,h_mat,s_mat,ei,ci);
 	print_matrix("EIGENVALUES",1,M,ei);

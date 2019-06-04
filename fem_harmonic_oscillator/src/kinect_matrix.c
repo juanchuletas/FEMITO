@@ -72,12 +72,14 @@ void second_grade_kin(double *mat,int M,int N,struct Element *e)
 			}
 			else if((j-i)==2 && j%2!=0)
 			{
-				mat[k] = (2.0/e[ij].h)*(7.0/6.0);
+				//mat[k] = (2.0/e[ij].h)*(7.0/6.0);
+				mat[k] = (1.0/(3.0*e[ij].h));
 				//printf("%d\t",ij+1);
 			}
 			else if((j-i)==-2 && j%2!=0)
 			{
-				mat[k] = (2.0/e[ij].h)*(7.0/6.0);
+				//mat[k] = (2.0/e[ij].h)*(7.0/6.0);
+				mat[k] = (1.0/(3.0*e[ij].h));
 				// printf("%d\t",ij+1);
 			}
 			else

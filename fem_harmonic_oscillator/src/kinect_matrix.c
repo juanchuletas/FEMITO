@@ -4,24 +4,26 @@
 void linear_kin(double *mat,int M,int N,struct Element *e)
 {
 	int k=0;
+	int ij=0;
         for(int i=0; i<M; i++)
         {
                 for(int j=0; j<N; j++)
                 {
                         if((i-j)==0)
                         {
-                                mat[k] = (1.0/e[i+1].h) + (1.0/e[j+2].h);
+                                mat[k] = (1.0/e[ij].h) + (1.0/e[ij+1].h);
+				ij++;
                                 //printf("%d + %d\t",i+1,j+2);
                         }
                         else if((j-i)==1)
                         {
-                                mat[k] = (1.0/e[j+1].h)*(-1.0);
+                                mat[k] = (1.0/e[ij].h)*(-1.0);
                                 //printf("%d\t",j);
 
                         }
                         else if((j-i)==-1)
                         {
-                                mat[k] = (1.0/e[i+1].h)*(-1.0);
+                                mat[k] = (1.0/e[ij].h)*(-1.0);
 
                                 //printf("%d\t",i);
                         }

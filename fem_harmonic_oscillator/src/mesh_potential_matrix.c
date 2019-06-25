@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "data_structures.h"
-void linear_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n)
+
+//extern void pot_mesh(double *f);
+void linear_pot_over_mesh(double *mat,int M,int N,struct Element *e,struct Vertex *n)
 {
 	int k=0;
 	int ij=0;
@@ -12,22 +14,22 @@ void linear_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n)
 		{
 			if((i-j)==0)
 			{
-				coeff[0] = (2.0/5.0)*e[ij].n[1].x*e[ij].n[1].x + (1.0/5.0)*e[ij].n[0].x*e[ij].n[1].x + (1.0/15.0)*e[ij].n[0].x*e[ij].n[0].x;
-				coeff[3] = (2.0/5.0)*e[ij+1].n[0].x*e[ij+1].n[0].x + (1.0/5.0)*e[ij+1].n[0].x*e[ij+1].n[1].x + (1.0/15.0)*e[ij+1].n[1].x*e[ij+1].n[1].x;
+				coeff[0] = (1.0/6.0)*e[ij].n[0].x*e[ij].n[0].x + (1.0/2.0)*e[ij].n[1].x*e[ij].n[1].x;
+				coeff[3] = (1.0/6.0)*e[ij+1].n[0].x*e[ij+1].n[0].x + (1.0/2.0)*e[ij+1].n[1].x*e[ij+1].n[1].x;
 				mat[k] = 0.5*e[ij].h*coeff[0] + 0.5*e[ij+1].h*coeff[3];
 				ij++;
 				//printf("%d + %d\t",i+1,j+2);
 			}
 			else if((j-i)==1)
 			{
-				coeff[1] = (1.0/10.0)*e[ij].n[1].x*e[ij].n[1].x + (2.0/15.0)*e[ij].n[1].x*e[ij].n[0].x +(1.0/10.0)*e[ij].n[0].x*e[ij].n[0].x;
+				coeff[1] = (1.0/6.0)*e[ij].n[1].x*e[ij].n[1].x + (1.0/6.0)*e[ij].n[0].x*e[ij].n[0].x;
 				mat[k] = 0.5*e[ij].h*coeff[1];
 				//printf("%d\t",j);
 
 			}
 			else if((j-i)==-1)
 			{
-				coeff[2] = (1.0/10.0)*e[ij].n[1].x*e[ij].n[1].x + (2.0/15.0)*e[ij].n[1].x*e[ij].n[0].x +(1.0/10.0)*e[ij].n[0].x*e[ij].n[0].x;
+				coeff[2] = (1.0/6.0)*e[ij].n[1].x*e[ij].n[1].x + (1.0/6.0)*e[ij].n[0].x*e[ij].n[0].x;
 				mat[k] = 0.5*e[ij].h*coeff[2];
 
 				//printf("%d\t",i);
@@ -42,7 +44,7 @@ void linear_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n)
 		//printf("\n");
 }
 }
-void second_grade_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n)
+/*void second_grade_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n)
 {
 	int ij,k;
 	double coeff[9];
@@ -104,16 +106,16 @@ void second_grade_pot(double *mat,int M,int N,struct Element *e,struct Vertex *n
 		}
 	}
 
-}
-void potential_matrix(double *mat,int M, int N,int option, struct Element *e,struct Vertex *n)
+}*/
+void pot_over_mesh(double *mat,int M, int N,int option, struct Element *e,struct Vertex *n)
 {
 	switch(option)
 	{
 		case 1:  //Linear Interpolation;      
-			linear_pot(mat,M,N,e,e->n);
+			linear_pot_over_mesh(mat,M,N,e,e->n);
 			break;
 		case 2: //Seconf grade interpolation
-			second_grade_pot(mat,M,N,e,e->n);
+			//second_grade_pot(mat,M,N,e,e->n);
 			break;
 
 	};
